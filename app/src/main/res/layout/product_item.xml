@@ -31,7 +31,8 @@
                     android:layout_margin="5dp"
                     android:layout_marginStart="6dp"
                     android:layout_weight="1"
-                    android:text="@string/product_name" />
+                    android:text="@string/product_name"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tvName"
@@ -52,9 +53,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:layout_marginLeft="6dp"
                     android:layout_weight="1"
-                    android:text="@string/product_description" />
+                    android:text="@string/product_description"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tvDescription"
@@ -75,7 +76,8 @@
                     android:layout_margin="5dp"
                     android:layout_marginStart="6dp"
                     android:layout_weight="1"
-                    android:text="@string/product_stock" />
+                    android:text="@string/product_stock"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tvStock"
@@ -96,7 +98,8 @@
                     android:layout_margin="5dp"
                     android:layout_marginStart="6dp"
                     android:layout_weight="1"
-                    android:text="@string/product_price" />
+                    android:text="@string/product_price"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tvPrice"
@@ -117,7 +120,8 @@
                     android:layout_margin="5dp"
                     android:layout_marginStart="6dp"
                     android:layout_weight="1"
-                    android:text="@string/product_category" />
+                    android:text="@string/product_category"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tvCategory"
@@ -133,27 +137,26 @@
 
                 <Button
                     android:id="@+id/btnEdit"
-                    android:layout_width="140dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/custom_button2"
+                    android:background="@drawable/custom_button"
                     android:text="@string/btn_edit"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/btnDelete"
-                    android:layout_width="140dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/custom_button"
                     android:text="@string/btn_delete"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:textSize="18sp" />
+
             </LinearLayout>
         </LinearLayout>
 

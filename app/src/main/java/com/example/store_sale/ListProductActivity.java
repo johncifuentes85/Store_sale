@@ -32,6 +32,8 @@ public class ListProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_product);
 
+        getSupportActionBar().hide();
+
         mainBinding = ActivityListProductBinding.inflate(getLayoutInflater());
         View view = mainBinding.getRoot();
         setContentView(view);

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/custom_splash">
+
+    <ImageView
+        android:id="@+id/ivLogoInicio"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="439dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/tienda" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="139dp" />
+
+    <ImageView
+        android:id="@+id/ivMarcaInicio"
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="266dp"
+        android:baselineAlignBottom="false"
+        android:contentDescription="TODO"
+        android:src="@drawable/marca_blanco" />
+
+
+</RelativeLayout>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo3"
+    tools:context=".registrese">
+
+    <Button
+        android:id="@+id/btnInicio"
+        android:layout_width="400dp"
+        android:layout_height="120dp"
+        android:background="@drawable/custom_button1"
+        android:onClick="inicio"
+        android:text="@string/btnInicio"
+        android:textAllCaps="false"
+        android:textColor="#094BF3"
+        android:textSize="45sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRegistrarse1" />
+
+    <EditText
+        android:id="@+id/etNombres"
+        android:layout_width="700dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/custom_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/txtNombres"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#9E9E9E"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toStartOf="@+id/etCiudad"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRegistrese" />
+
+    <EditText
+        android:id="@+id/etCorreo"
+        android:layout_width="700dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/etCorreo"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:textColor="#9E9E9E"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerRol"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNombres" />
+
+    <EditText
+        android:id="@+id/etContraseña"
+        android:layout_width="700dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/etContraseña"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:textColor="#9E9E9E"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toStartOf="@+id/etTienda"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCorreo" />
+
+    <Button
+        android:id="@+id/btnRegistrarse1"
+        android:layout_width="500dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/custom_button"
+        android:backgroundTint="@null"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/btnRegistrarse1"
+        android:textColor="@color/white"
+        android:textSize="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTienda" />
+
+    <TextView
+        android:id="@+id/tvRegistrese"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="220dp"
+        android:gravity="center"
+        android:text="@string/tvRegistrese"
+        android:textSize="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etCiudad"
+        android:layout_width="700dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/custom_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/etCiudad"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#9E9E9E"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etNombres"
+        app:layout_constraintTop_toBottomOf="@+id/tvRegistrese"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Spinner
+        android:id="@+id/spinnerRol"
+        android:layout_width="700dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/custom_text"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:counterEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etCorreo"
+        app:layout_constraintTop_toBottomOf="@+id/etCiudad"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/etTienda"
+        android:layout_width="700dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/custom_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/etTienda"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#9E9E9E"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etContraseña"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerRol" />
+
+    <Spinner
+        android:id="@+id/spinnerPais"
+        android:layout_width="700dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
+        android:background="@drawable/custom_text"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/btnRegistrarse1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etContraseña"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/ivTiendar"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/tienda"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivMarcar"
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="168dp"
+        android:src="@drawable/marcar_rojo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

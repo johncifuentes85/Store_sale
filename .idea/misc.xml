@@ -5,10 +5,20 @@
       <map>
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/drawable/custom_button.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/drawable/custom_button1.xml" value="0.15885416666666666" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/drawable/custom_button2.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/drawable/custom_splash.xml" value="0.15885416666666666" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout-land/activity_main.xml" value="0.12081128747795414" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout-sw320dp/activity_inicio.xml" value="0.14270833333333333" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_add_product.xml" value="0.33" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_edit_product.xml" value="0.33" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_inicio.xml" value="0.33" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_list_product.xml" value="0.23097826086956522" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_main.xml" value="0.25885416666666666" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_registrese.xml" value="0.33" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_rgistrese.xml" value="0.2" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_session.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/product_item.xml" value="0.23097826086956522" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/spinner_item_paises.xml" value="0.14270833333333333" />
       </map>
     </option>
   </component>
