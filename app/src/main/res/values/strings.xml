@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Store_sale</string>
+    <string name="btn_edit">Editar</string>
+    <string name="btn_delete">Eliminar</string>
+    <string name="btn_update">Actualizar</string>
+    <string name="product_name">Nombre producto</string>
+    <string name="product_description">Descripcion producto</string>
+    <string name="product_stock">Unidades disponibles</string>
+    <string name="product_price">Precio</string>
+    <string name="product_category">Cateforia</string>
+</resources>
