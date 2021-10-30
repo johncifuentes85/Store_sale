@@ -29,8 +29,9 @@
     <string name="btn_edit">Editar</string>
     <string name="btn_delete">Eliminar</string>
     <string name="btn_newProduc">Nuevo producto</string>
-    <string name="btn_EditProduct">EDITAR PRODUCTO</string>
+    <string name="btn_EditProduct">VER PRODUCTOS</string>
     <string name="btn_update">Actualizar</string>
     <string name="btn_menu">Regresar al Menu</string>
+    <string name="btn_menu1">Regresar</string>
     <string name="EditProduct">EDITAR PRODUCTO</string>
 </resources>
