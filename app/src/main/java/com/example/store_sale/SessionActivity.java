@@ -1,10 +1,14 @@
 package com.example.store_sale;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -13,12 +17,21 @@ import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.example.store_sale.Entities.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class SessionActivity extends AppCompatActivity {
 
@@ -27,6 +40,8 @@ public class SessionActivity extends AppCompatActivity {
 
     AwesomeValidation awesomeValidation;
     FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
+    ArrayList<Product> productArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +50,7 @@ public class SessionActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
         firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser User = mAuth.getCurrentUser();
@@ -50,11 +66,51 @@ public class SessionActivity extends AppCompatActivity {
         etCorreosession = findViewById(R.id.etCorreosession);
         etContraseñasession = findViewById(R.id.etContraseñasession);
 
+
         btnEntrar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 String correo = etCorreosession.getText().toString();
                 String contraseña =etContraseñasession.getText().toString();
+
+
+                //se hace el sharepreference
+                db.collection("usser").whereEqualTo("correo", correo)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        String name = (String) document.get("nombres");//asi se estraen los datos.
+                                        String tipo = (String) document.get("tipo");//asi se estraen los datos.
+                                        String tienda = (String) document.get("tienda");//asi se estraen los datos.
+                                        //Toast.makeText(getApplicationContext(), "Exito...", Toast.LENGTH_SHORT).show();
+
+                                        //se crean los datos para manejar la sesion
+                                        Context context = getApplicationContext();
+                                        SharedPreferences sharedPref = context.getSharedPreferences(
+                                                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                        editor.putString("name",name);
+                                        editor.putString("tipo",tipo);
+                                        editor.putString("tienda",tienda);
+                                        editor.putString("correo",correo);
+                                        editor.putBoolean("session",true);
+                                        editor.commit();
+
+                                        //Asi se trae la infoamcion
+                                        /*String nombres = sharedPref.getString("name","");
+                                        String tupousuario = sharedPref.getString("tipo","");
+                                        String nombretienda = sharedPref.getString("tienda","");
+                                        String correoelect = sharedPref.getString("correo","");
+                                        Toast.makeText(getApplicationContext(), "informacion..."+nombres+"-"+tupousuario+"-"+nombretienda+"-"+correoelect, Toast.LENGTH_SHORT).show();*/
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
                 if(correo.equals("")){
                     Toast.makeText(SessionActivity.this, "Ingrese su contraseña..!!", Toast.LENGTH_SHORT).show();
@@ -73,7 +129,20 @@ public class SessionActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                irahome();
+                                //irahome();
+                                Context context = getApplicationContext();
+                                SharedPreferences sharedPref = context.getSharedPreferences(
+                                        getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                                String tipousuario = sharedPref.getString("tipo","");
+                                //Toast.makeText(getApplicationContext(), "tipo: "+tipousuario, Toast.LENGTH_SHORT).show();
+                                String t = "Vendedor";
+                                if(tipousuario.equals("Usuario")){
+                                    listUser();
+                                }
+                                else if(tipousuario.equals("Vendedor")){
+                                    list();
+                                }
+
                             }
                             else {
                                 String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
@@ -83,8 +152,10 @@ public class SessionActivity extends AppCompatActivity {
 
                     });
                 }
+
             }
-            //}
+
+
         });
 
     }
@@ -94,6 +165,15 @@ public class SessionActivity extends AppCompatActivity {
         intent.putExtra("mail", etCorreosession.getText().toString());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+    private void listUser(){
+        Intent intent = new Intent(this,ListProductUserActivity.class);
+        startActivity(intent);
+    }
+
+    private void list(){
+        Intent intent1 = new Intent(this,ListProductActivity.class);
+        startActivity(intent1);
     }
 
     public void registrese(View view){

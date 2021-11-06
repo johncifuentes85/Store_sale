@@ -1,5 +1,7 @@
 package com.example.store_sale.Entities;
 
+import android.net.Uri;
+
 import com.google.firebase.firestore.DocumentId;
 
 import java.io.Serializable;
@@ -13,6 +15,8 @@ public class Product implements Serializable {
     private int stock;
     private double price;
     private String category;
+    private String shop;
+    private String uri;
 
     public String getId() {
         return id;
@@ -62,5 +66,20 @@ public class Product implements Serializable {
         this.category = category;
     }
 
+    public String getShop() {
+        return shop;
+    }
+
+    public void setShop(String shop) {
+        this.shop = shop;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 }
 

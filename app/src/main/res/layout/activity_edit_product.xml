@@ -7,6 +7,37 @@
     android:background="@drawable/fondo3"
     tools:context=".EditProductActivity">
 
+    <TextView
+        android:id="@+id/tvNametienda2"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="?attr/colorPrimary"
+        android:gravity="center"
+        android:text="@string/Edit_product"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnImage2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-medium"
+        android:onClick="selectImageFromGallery"
+        android:text="@string/pick_image"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
     <Button
         android:id="@+id/btnMenuEdit"
         android:layout_width="200dp"
@@ -23,58 +54,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUpdate" />
 
-    <ImageView
-        android:id="@+id/ivTienda2"
-        android:layout_width="76dp"
-        android:layout_height="83dp"
-        android:layout_marginTop="36dp"
-        android:src="@drawable/tienda"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivMarcas2"
-        android:layout_width="212dp"
-        android:layout_height="62dp"
-        android:layout_marginBottom="102dp"
-        android:src="@drawable/marcar_rojo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivTienda2" />
-
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textColor="#9E9E9E"
-        android:gravity="center"
-        android:text="@string/EditProduct"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivMarcas2" />
-
     <EditText
         android:id="@+id/etName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/custom_text"
-        android:textColor="#9E9E9E"
         android:ems="10"
         android:gravity="center"
         android:hint="@string/product_name"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:textColor="#9E9E9E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/btnImage2" />
 
     <EditText
         android:id="@+id/etDescription"
@@ -162,5 +158,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etCategory" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="240dp" />
+
+    <ImageView
+        android:id="@+id/ivProduct"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNametienda2"
+        app:srcCompat="@drawable/ic_image_folder_pana" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

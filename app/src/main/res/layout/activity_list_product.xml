@@ -7,6 +7,70 @@
     android:background="@drawable/fondo3"
     tools:context=".ListProductActivity">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="66dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/colorPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvNameUser"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnAddProducts"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/custom_button3"
+            android:drawableLeft="@drawable/outline_add_circle_outline_black_36"
+            android:onClick="newProduct"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/enblanco"
+            android:textColor="@color/white"
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:text="@string/enblanco" />
+
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/custom_button3"
+            android:drawableLeft="@drawable/outline_door_front_black_36"
+            android:onClick="close"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:text="@string/enblanco" />
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProducts"
         android:layout_width="0dp"
@@ -14,6 +78,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/svProduct" />
+
+    <SearchView
+        android:id="@+id/svProduct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/custom_text2"
+        android:strokeColor="@color/temaprimario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

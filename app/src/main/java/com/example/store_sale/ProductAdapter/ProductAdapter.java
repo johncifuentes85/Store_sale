@@ -12,8 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.store_sale.EditProductActivity;
 import com.example.store_sale.Entities.Product;
+import com.example.store_sale.R;
 import com.example.store_sale.databinding.ProductItemBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,6 +51,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.itemBinding.tvStock.setText(String.valueOf(product.getStock()));
         holder.itemBinding.tvPrice.setText(String.valueOf(product.getPrice()));
         holder.itemBinding.tvCategory.setText(product.getCategory());
+        Glide.with(context)
+                .load(product.getUri())
+                .placeholder(R.drawable.caja)
+                .into(productItemBinding.ivImageProduct);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override

@@ -34,4 +34,10 @@
     <string name="btn_menu">Regresar al Menu</string>
     <string name="btn_menu1">Regresar</string>
     <string name="EditProduct">EDITAR PRODUCTO</string>
+    <string name="preference_file_key">data_usser</string>
+    <string name="titleProducts">Productos</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="addarrito">Agregar al carrito</string>
+    <string name="Edit_product">EDITAR PRODUCTO</string>
+    <string name="enblanco"></string>
 </resources>

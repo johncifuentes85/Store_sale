@@ -9,33 +9,45 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.store_sale.databinding.ActivityAddProductBinding;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class AddProductActivity extends AppCompatActivity {
 
     Button btnImage, btnAddProduct;
     EditText etName,etDescription, etStock, etPrice, etCategory;
+    TextView tvtienda;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private ActivityAddProductBinding addProductBinding;
+    Uri imageUri, downloadUrl;
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private ProgressDialog progressDialog;
@@ -58,6 +70,16 @@ public class AddProductActivity extends AppCompatActivity {
         etStock = findViewById(R.id.etProducStock);
         etPrice = findViewById(R.id.etProductPrice);
         etCategory = findViewById(R.id.etProducCategory);
+        tvtienda=(TextView)findViewById(R.id.tvNametienda);
+
+        Context context = getApplicationContext();
+        SharedPreferences sharedPref2 = context.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String tienda = sharedPref2.getString("tienda","");
+        //Toast.makeText(getApplicationContext(), "tienda: "+tienda, Toast.LENGTH_SHORT).show();
+        TextView nameStore = (TextView)findViewById(R.id.tvNametienda);
+        nameStore.setText(tienda);
+
     }
 
     public void selectImageFromGallery(View view){
@@ -71,12 +93,13 @@ public class AddProductActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    //obstenemos el resulado de seleccionar la imagen
+                    //obtenemos el resulado de seleccionar la imagen
                     if(result.getResultCode() == Activity.RESULT_OK){
                         Intent data = result.getData();
                         Uri uri = data.getData();
                         if(uri != null){
                             addProductBinding.ivProduct.setImageURI(uri);
+                            imageUri = uri;
                         }
                     }
                     else{
@@ -93,50 +116,132 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     public void menu(View view){
-        Intent intent = new Intent(this,InicioActivity.class);
+        Intent intent = new Intent(this,ListProductActivity.class);
         startActivity(intent);
         finish();
     }
 
     public void addProduct(View view){
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Creando producto");
-        progressDialog.show();
-
-        Map<String, Object> userData = new HashMap<>();
 
         String name = etName.getText().toString();
         String description = etDescription.getText().toString();
-        int stock = Integer.parseInt(etStock.getText().toString());
-        double price = Double.parseDouble(etPrice.getText().toString());
+        String stock = etStock.getText().toString();
+        String price = etPrice.getText().toString();
         String category = etCategory.getText().toString();
 
-        userData.put("name",name);
-        userData.put("description",description);
-        userData.put("stock",stock);
-        userData.put("price",price); // se envia la informacion
-        userData.put("category",category);
+        if(imageUri==null){
+            Toast.makeText(getApplicationContext(), "Ingrese la imagen de su producto..!!", Toast.LENGTH_SHORT).show();
+        }
+        else if(name.equals("")){
+            Toast.makeText(getApplicationContext(), "Ingrese el nombre de su producto..!!", Toast.LENGTH_SHORT).show();
+            etName.setError("Ingrese el nombre de su producto");
+            etName.requestFocus();
+            etName.setText("");
+        }
+        else if(description.equals("")){
+            Toast.makeText(getApplicationContext(), "Ingrese la descripcion de su producto..!!", Toast.LENGTH_SHORT).show();
+            etDescription.setError("Ingrese la descripcion de su producto");
+            etDescription.requestFocus();
+            etDescription.setText("");
+        }
+        else if(price.equals("")){
+            Toast.makeText(getApplicationContext(), "Ingrese el precio de su producto..!!", Toast.LENGTH_SHORT).show();
+            etPrice.setError("Ingrese el precio de su producto");
+            etPrice.requestFocus();
+            etPrice.setText("");
+        }
+        else if(stock.equals("")){
+            Toast.makeText(getApplicationContext(), "Ingrese las unidades disponibles de su producto..!!", Toast.LENGTH_SHORT).show();
+            etStock.setError("Ingrese las unidades disponibles de su producto");
+            etStock.requestFocus();
+            etStock.setText("");
+        }
+        else if(category.equals("")){
+            Toast.makeText(getApplicationContext(), "Ingrese la categoria de su producto..!!", Toast.LENGTH_SHORT).show();
+            etCategory.setError("Ingrese la categoria de su producto");
+            etCategory.requestFocus();
+            etCategory.setText("");
+        }
+        else {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading File....");
+        progressDialog.show();
 
-        db.collection("products")
-                .add(userData)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        Toast.makeText(getApplicationContext(), "Producto Creado", Toast.LENGTH_SHORT).show();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CANADA);
+        Date now = new Date();
+        String fileName = formatter.format(now);
+        storageReference = FirebaseStorage.getInstance().getReference("images/"+fileName);
+        UploadTask uploadTask = storageReference.putFile(imageUri);
+
+
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return storageReference.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    String downloadURL = downloadUri.toString();
+
+                    Map<String, Object> userData = new HashMap<>();
+
+                    String name = etName.getText().toString();
+                    String description = etDescription.getText().toString();
+                    int stock = Integer.parseInt(etStock.getText().toString());
+                    double price = Double.parseDouble(etPrice.getText().toString());
+                    String category = etCategory.getText().toString();
+                    String shop = tvtienda.getText().toString();
+                    String uri = downloadURL;
+
+                    userData.put("name",name);
+                    userData.put("description",description);
+                    userData.put("stock",stock);
+                    userData.put("price",price); // se envia la informacion
+                    userData.put("category",category);
+                    userData.put("shop",shop);
+                    userData.put("uri",uri);
+
+                    db.collection("products")
+                            .add(userData)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                    Toast.makeText(getApplicationContext(), "Producto Creado", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    //Log.w(TAG, "Error adding document", e);
+                                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                    if (progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                        Intent intent = new Intent(getApplicationContext(),ListProductActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        //Log.w(TAG, "Error adding document", e);
-                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    //addProductBinding.tvDownloadUrl.setText("" + downloadUri);
 
-        Intent intent = new Intent(getApplicationContext(),InicioActivity.class);
-        startActivity(intent);
-        finish();
-
+                    //Toast.makeText(getApplicationContext(), "uri: " + downloadURL, Toast.LENGTH_SHORT).show();
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            }
+        });
+        }
     }
 }
