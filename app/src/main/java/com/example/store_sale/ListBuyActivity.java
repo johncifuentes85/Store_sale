@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,13 +11,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.store_sale.Entities.Product;
-import com.example.store_sale.ProductAdapter.ProductAdapter;
+import com.example.store_sale.Entities.Shopping;
+import com.example.store_sale.ProductAdapter.ListProductAdapter;
+import com.example.store_sale.databinding.ActivityListBuyBinding;
 import com.example.store_sale.databinding.ActivityListProductBinding;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,38 +25,30 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class ListProductActivity extends AppCompatActivity {
+public class ListBuyActivity extends AppCompatActivity {
 
-
-    private ActivityListProductBinding mainBinding;
+    private ActivityListBuyBinding mainBinding;
     private FirebaseFirestore db;
 
-    ArrayList<Product> productArrayList;
-    ProductAdapter productAdapter;
+    ArrayList<Shopping> productListArrayList;
+    ListProductAdapter listProductAdapter;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_product);
+        setContentView(R.layout.activity_list_buy);
 
-        //getSupportActionBar().hide();
-
-        mainBinding = ActivityListProductBinding.inflate(getLayoutInflater());
+        mainBinding = ActivityListBuyBinding.inflate(getLayoutInflater());
         View view = mainBinding.getRoot();
         setContentView(view);
         db = FirebaseFirestore.getInstance();
-        productArrayList = new ArrayList<>();
-        productAdapter = new ProductAdapter(this, productArrayList, db);
-        mainBinding.rvProducts.setHasFixedSize(true);
-        mainBinding.rvProducts.setLayoutManager(new LinearLayoutManager(this));
-        mainBinding.rvProducts.setAdapter(productAdapter);
-
-
+        productListArrayList = new ArrayList<>();
+        listProductAdapter = new ListProductAdapter(this, productListArrayList, db);
+        mainBinding.rvListProduct.setHasFixedSize(true);
+        mainBinding.rvListProduct.setLayoutManager(new LinearLayoutManager(this));
+        mainBinding.rvListProduct.setAdapter(listProductAdapter);
 
         getProducts();
-        //Toast.makeText(getApplicationContext(), "tienda: "+tienda, Toast.LENGTH_SHORT).show();
-
     }
 
     public boolean onCreateOptionsMenu (Menu menu){
@@ -108,11 +98,9 @@ public class ListProductActivity extends AppCompatActivity {
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String tienda = sharedPref2.getString("tienda","");
         //Toast.makeText(getApplicationContext(), "tienda: "+tienda, Toast.LENGTH_SHORT).show();
-
         this.setTitle(tienda);
 
-
-        db.collection("products").whereEqualTo("shop", tienda)
+        db.collection("shopping").whereEqualTo("shop", tienda)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -122,40 +110,12 @@ public class ListProductActivity extends AppCompatActivity {
                         }
                         for(DocumentChange dc : value.getDocumentChanges()){
                             if(dc.getType() == DocumentChange.Type.ADDED){
-                                productArrayList.add(dc.getDocument().toObject(Product.class));
+                                productListArrayList.add(dc.getDocument().toObject(Shopping.class));
                             }
                         }
-                        productAdapter.notifyDataSetChanged();
+                        listProductAdapter.notifyDataSetChanged();
                     }
                 });
     }
 
-    public void close(View v) {
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(ListProductActivity.this, "Sesion cerrada", Toast.LENGTH_SHORT).show();
-        cerrarLogin();
-    }
-
-    public void newProduct(View view) {
-        Intent intent = new Intent(this,AddProductActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    private void cerrarLogin() {
-        Context context = getApplicationContext();
-        SharedPreferences sharedPref = context.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("name","");
-        editor.putString("tipo","");
-        editor.putString("tienda","");
-        editor.putString("correo","");
-        editor.putBoolean("session",false);
-        editor.commit();
-
-        Intent intent = new Intent(this,SessionActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 }

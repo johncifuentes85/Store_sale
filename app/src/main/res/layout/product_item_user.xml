@@ -221,27 +221,17 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/editTextNumberPassword"
-                    android:layout_width="80dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/custom_text"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="@string/cantidad"
-                    android:inputType="numberPassword" />
-
                 <Button
-                    android:id="@+id/btnDelete"
+                    android:id="@+id/btnAddBuy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/custom_button"
                     android:drawableLeft="@drawable/outline_add_shopping_cart_white_36"
-                    android:paddingLeft="10dp"
+                    android:onClick="buy"
+                    android:paddingLeft="70dp"
+                    android:paddingEnd="70dp"
                     android:text="@string/addarrito"
                     android:textColor="@color/white"
                     android:textSize="16sp" />

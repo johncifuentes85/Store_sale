@@ -8,7 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +40,6 @@ public class ListProductUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_product_user);
 
-        getSupportActionBar().hide();
-
         mainBinding = ActivityListProductUserBinding.inflate(getLayoutInflater());
         View view = mainBinding.getRoot();
         setContentView(view);
@@ -49,9 +50,54 @@ public class ListProductUserActivity extends AppCompatActivity {
         mainBinding.rvProducts.setLayoutManager(new LinearLayoutManager(this));
         mainBinding.rvProducts.setAdapter(productAdapterUser);
 
+        Context context = getApplicationContext();
+        SharedPreferences sharedPref2 = context.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String correo = sharedPref2.getString("correo","");
+        //Toast.makeText(getApplicationContext(), "tienda: "+tienda, Toast.LENGTH_SHORT).show();
+        this.setTitle(correo);
+
+
         getProducts();
         //Toast.makeText(getApplicationContext(), "tienda: "+tienda, Toast.LENGTH_SHORT).show();
 
+    }
+
+    public boolean onCreateOptionsMenu (Menu menu){
+        getMenuInflater().inflate(R.menu.overflowuser, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected (MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.item_close) {
+            Context context = getApplicationContext();
+            SharedPreferences sharedPref = context.getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("name","");
+            editor.putString("tipo","");
+            editor.putString("tienda","");
+            editor.putString("correo","");
+            editor.putBoolean("session",false);
+            editor.commit();
+
+            Intent intent = new Intent(this,SessionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (id == R.id.item_list) {
+            Intent intent = new Intent(this,ListBuyUserActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            //Toast.makeText(getApplicationContext(), "lista", Toast.LENGTH_SHORT).show();
+        }else if (id == R.id.item_listProduct) {
+            Intent intent = new Intent(this,ListProductUserActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            //Toast.makeText(getApplicationContext(), "lista", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public  void getProducts(){
@@ -61,8 +107,6 @@ public class ListProductUserActivity extends AppCompatActivity {
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String correo = sharedPref2.getString("correo","");
         //Toast.makeText(getApplicationContext(), "tienda: "+tienda, Toast.LENGTH_SHORT).show();
-        TextView correoe = (TextView)findViewById(R.id.tvNameUser);
-        correoe.setText(correo);
 
         db.collection("products")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -81,6 +125,7 @@ public class ListProductUserActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
     public void close(View v) {
         FirebaseAuth.getInstance().signOut();

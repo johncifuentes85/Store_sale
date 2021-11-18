@@ -40,4 +40,14 @@
     <string name="addarrito">Agregar al carrito</string>
     <string name="Edit_product">EDITAR PRODUCTO</string>
     <string name="enblanco"></string>
+
+    <string name="item_close">Cerrar Sesion</string>
+    <string name="item_new">Producto Nuevo</string>
+    <string name="item_user">Perfil</string>
+    <string name="item_Lista">Ventas</string>
+    <string name="item_ListaProductos">Lista de Productos</string>
+    <string name="btn_buy">Comprar</string>
+    <string name="direccion">Direccion de entrega</string>
+    <string name="total">Total</string>
+    <string name="item_Compras">Lista de Compras</string>
 </resources>

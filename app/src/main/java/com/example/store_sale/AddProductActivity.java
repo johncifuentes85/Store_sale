@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +44,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     Button btnImage, btnAddProduct;
     EditText etName,etDescription, etStock, etPrice, etCategory;
-    TextView tvtienda;
+    String tvtienda;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -57,7 +59,7 @@ public class AddProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         addProductBinding = ActivityAddProductBinding.inflate(getLayoutInflater());
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         View v =addProductBinding.getRoot();
         setContentView(v);
         storage = FirebaseStorage.getInstance();
@@ -70,16 +72,58 @@ public class AddProductActivity extends AppCompatActivity {
         etStock = findViewById(R.id.etProducStock);
         etPrice = findViewById(R.id.etProductPrice);
         etCategory = findViewById(R.id.etProducCategory);
-        tvtienda=(TextView)findViewById(R.id.tvNametienda);
+
 
         Context context = getApplicationContext();
         SharedPreferences sharedPref2 = context.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String tienda = sharedPref2.getString("tienda","");
         //Toast.makeText(getApplicationContext(), "tienda: "+tienda, Toast.LENGTH_SHORT).show();
-        TextView nameStore = (TextView)findViewById(R.id.tvNametienda);
-        nameStore.setText(tienda);
+        tvtienda=(tienda);
 
+        this.setTitle(tienda);
+
+
+    }
+
+    public boolean onCreateOptionsMenu (Menu menu){
+        getMenuInflater().inflate(R.menu.overflow, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected (MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.item_close) {
+            Context context = getApplicationContext();
+            SharedPreferences sharedPref = context.getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("name","");
+            editor.putString("tipo","");
+            editor.putString("tienda","");
+            editor.putString("correo","");
+            editor.putBoolean("session",false);
+            editor.commit();
+
+            Intent intent = new Intent(this,SessionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (id == R.id.item_listProduct) {
+            Intent intent = new Intent(this,ListProductActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (id == R.id.item_list) {
+            Intent intent = new Intent(this,ListBuyActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            //Toast.makeText(getApplicationContext(), "lista", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.item_new) {
+            Intent intent = new Intent(this,AddProductActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void selectImageFromGallery(View view){
@@ -199,7 +243,7 @@ public class AddProductActivity extends AppCompatActivity {
                     int stock = Integer.parseInt(etStock.getText().toString());
                     double price = Double.parseDouble(etPrice.getText().toString());
                     String category = etCategory.getText().toString();
-                    String shop = tvtienda.getText().toString();
+                    String shop = tvtienda;
                     String uri = downloadURL;
 
                     userData.put("name",name);

@@ -15,58 +15,60 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.store_sale.BuyActivity;
 import com.example.store_sale.Entities.Product;
-
+import com.example.store_sale.Entities.Shopping;
 import com.example.store_sale.R;
+import com.example.store_sale.databinding.ProductItemBuyUserBinding;
 import com.example.store_sale.databinding.ProductItemUserBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ProductAdapterUser extends RecyclerView.Adapter<ProductAdapterUser.ProductViewHolder> {
+public class ProductListAdapterUser extends RecyclerView.Adapter<ProductListAdapterUser.ProductViewHolder> {
 
     private Context context;
-    private ProductItemUserBinding productItemUserBinding;
-    private ArrayList<Product> productArrayList;
+    private ProductItemBuyUserBinding productItemBuyUserBinding;
+    private ArrayList<Shopping> productListArrayList;
     private FirebaseFirestore db;
 
-    public ProductAdapterUser(Context context, ArrayList<Product> productArrayList, FirebaseFirestore db) {
+    public ProductListAdapterUser(Context context, ArrayList<Shopping> productListArrayList, FirebaseFirestore db) {
         this.context = context;
-        this.productArrayList = productArrayList;
+        this.productListArrayList = productListArrayList;
         this.db = db;
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        productItemUserBinding = productItemUserBinding.inflate(LayoutInflater.from(context));
-        return new ProductViewHolder(productItemUserBinding);
+        productItemBuyUserBinding = productItemBuyUserBinding.inflate(LayoutInflater.from(context));
+        return new ProductViewHolder(productItemBuyUserBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Product product = productArrayList.get(position);
-        holder.itemBinding.tvName.setText(product.getName());
-        holder.itemBinding.tvDescription.setText(product.getDescription());
-        holder.itemBinding.tvStock.setText(String.valueOf(product.getStock()));
-        holder.itemBinding.tvPrice.setText(String.valueOf(product.getPrice()));
-        holder.itemBinding.tvCategory.setText(product.getCategory());
-        holder.itemBinding.tvNameTienda.setText((product.getShop()));
+        Shopping shopping = productListArrayList.get(position);
+        holder.itemBinding.tvNameList.setText(shopping.getName());
+        holder.itemBinding.tvCantidadList.setText(String.valueOf(shopping.getUnits()));
+        DecimalFormat formato = new DecimalFormat("$#,###.###");
+        String valorFormateado = formato.format((shopping.getPrice()*shopping.getUnits()));
+        holder.itemBinding.tvTotalList.setText(valorFormateado);
+        holder.itemBinding.tvDireccionList.setText(shopping.getDescription());
+        holder.itemBinding.tvTiendaList.setText(shopping.getShop());
         Glide.with(context)
-                .load(product.getUri())
+                .load(shopping.getUri())
                 .placeholder(R.drawable.caja)
-                .error(R.drawable.caja)
-                .into(productItemUserBinding.ivImageProduct1);
+                .into(productItemBuyUserBinding.ivImageProductList);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                db.collection("products").document(product.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection("products").document(shopping.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(context, "Data delete", Toast.LENGTH_SHORT).show();
-                        productArrayList.remove(holder.getAdapterPosition());
+                        productListArrayList.remove(holder.getAdapterPosition());
                         notifyDataSetChanged();
                     }
                 })
@@ -91,25 +93,18 @@ public class ProductAdapterUser extends RecyclerView.Adapter<ProductAdapterUser.
                 builder.create().show();
             }
         });*/
-        holder.itemBinding.btnAddBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, BuyActivity.class);
-                intent.putExtra("product", product);
-                context.startActivity(intent);
-            }
-        });
+
     }
 
     @Override
     public int getItemCount() {
-        return productArrayList.size();
+        return productListArrayList.size();
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
-        ProductItemUserBinding itemBinding;
+        ProductItemBuyUserBinding itemBinding;
 
-        public ProductViewHolder(@NonNull ProductItemUserBinding itemBinding) {
+        public ProductViewHolder(@NonNull ProductItemBuyUserBinding itemBinding) {
             super(itemBinding.getRoot());
             this.itemBinding = itemBinding;
         }

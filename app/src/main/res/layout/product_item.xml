@@ -55,7 +55,7 @@
                     android:textSize="14dp" />
 
                 <TextView
-                    android:id="@+id/tvName"
+                    android:id="@+id/tvNameList"
                     android:layout_width="190dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
@@ -90,7 +90,7 @@
                     android:textSize="14dp" />
 
                 <TextView
-                    android:id="@+id/tvDescription"
+                    android:id="@+id/tvDescriptionList1"
                     android:layout_width="190dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"

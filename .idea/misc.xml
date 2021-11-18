@@ -14,8 +14,12 @@
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout-sw320dp/activity_inicio.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout-sw320dp/activity_session.xml" value="0.24003623188405798" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_add_product.xml" value="0.22" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_buy.xml" value="0.5" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_buy1.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_edit_product.xml" value="0.33" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_inicio.xml" value="0.33" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_list_buy.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_list_buy_user.xml" value="0.25885416666666666" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_list_product.xml" value="0.23097826086956522" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_list_product_user.xml" value="0.25" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_main.xml" value="0.25885416666666666" />
@@ -23,9 +27,13 @@
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_rgistrese.xml" value="0.2" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/activity_session.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/product_item.xml" value="0.2866043613707165" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/product_item_buy.xml" value="0.33" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/product_item_buy_user.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/product_item_copia.xml" value="0.25" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/product_item_user.xml" value="0.25" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/layout/spinner_item_paises.xml" value="0.14270833333333333" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/menu/overflow.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/Store_sale/app/src/main/res/menu/overflowuser.xml" value="0.27291666666666664" />
       </map>
     </option>
   </component>

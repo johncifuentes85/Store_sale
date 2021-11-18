@@ -128,7 +128,7 @@ public class EditProductActivity extends AppCompatActivity implements View.OnCli
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     if (task.isSuccessful()) {
-                       Uri downloadUri = task.getResult();
+                        Uri downloadUri = task.getResult();
                         String downloadURL = downloadUri.toString();
 
                         Map<String, Object> dataProduct = new HashMap<>();
