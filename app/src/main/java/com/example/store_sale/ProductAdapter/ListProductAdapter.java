@@ -55,7 +55,8 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         String valorFormateado = formato.format((shopping.getPrice()*shopping.getUnits()));
         holder.itemBinding.tvTotalListUser.setText(valorFormateado);
         holder.itemBinding.tvDireccionListUser.setText(shopping.getDescription());
-        holder.itemBinding.tvTiendaListUser.setText(shopping.getShop());
+        holder.itemBinding.tvUserListUser.setText(shopping.getUser());
+        holder.itemBinding.tvFechaListUser.setText(shopping.getFecha());
         Glide.with(context)
                 .load(shopping.getUri())
                 .placeholder(R.drawable.caja)

@@ -50,4 +50,6 @@
     <string name="direccion">Direccion de entrega</string>
     <string name="total">Total</string>
     <string name="item_Compras">Lista de Compras</string>
+    <string name="fecha">Fecha</string>
+    <string name="cliente">Cliente</string>
 </resources>

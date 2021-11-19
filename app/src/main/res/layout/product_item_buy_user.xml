@@ -39,6 +39,24 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fecha"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvFechaList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enblanco"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:textSize="14sp"/>
+
+                    <TextView
                         android:id="@+id/tvNameList1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

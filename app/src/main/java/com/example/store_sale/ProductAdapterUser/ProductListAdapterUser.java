@@ -56,6 +56,7 @@ public class ProductListAdapterUser extends RecyclerView.Adapter<ProductListAdap
         holder.itemBinding.tvTotalList.setText(valorFormateado);
         holder.itemBinding.tvDireccionList.setText(shopping.getDescription());
         holder.itemBinding.tvTiendaList.setText(shopping.getShop());
+        holder.itemBinding.tvFechaList.setText(shopping.getFecha());
         Glide.with(context)
                 .load(shopping.getUri())
                 .placeholder(R.drawable.caja)
